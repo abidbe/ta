@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en" style="/* --bs-primary: #FC00FF;*//*--bs-primary-rgb: 252,0,255;*/">
+<html data-bs-theme="light" lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    style="/* --bs-primary: #FC00FF;*//*--bs-primary-rgb: 252,0,255;*/">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'TA') }}</title>
     <link rel="stylesheet" href="{{ asset('ta/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
@@ -21,7 +23,7 @@
             style="position: relative;background: linear-gradient(60deg, #00DBDE 0%, #FC00FF 100%), #00DBDE;">
             <div class="container-fluid d-flex flex-column p-0"><a
                     class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-                    href="{{url('home')}}">
+                    href="{{ url('home') }}">
                     <div class="sidebar-brand-icon"><img src="{{ asset('ta/assets/img/builder.png') }}" width="33"
                             height="34" style="height: 33px;"></div>
                     <div class="sidebar-brand-text mx-3"><span
@@ -30,15 +32,15 @@
                 </a>
                 <ul class="navbar-nav text-light d-xxl-flex" id="accordionSidebar"
                     style="color: var(--bs-accordion-btn-focus-border-color);padding-bottom: 0px;padding-top: 0px;margin-top: 13px;">
-                    <li class="nav-item"><a class="nav-link" href="{{url('home')}}"><i
+                    <li class="nav-item"><a class="nav-link" href="{{ url('home') }}"><i
                                 class="fas fa-tachometer-alt text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0px;margin-right: 0px;font-size: 15px;"></i><span
                                 style="color: var(--bs-navbar-active-color);">Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('dataalat')}}"><i
+                    <li class="nav-item"><a class="nav-link" href="{{ url('dataalat') }}"><i
                                 class="fas fa-table text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
                                 style="color: var(--bs-navbar-active-color);margin-left: 0px;">Data Alat
-                                berat</span></a><a class="nav-link" href="{{url('datatruk')}}"><svg
+                                berat</span></a><a class="nav-link" href="{{ url('datatruk') }}"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                                 viewBox="0 0 16 16" class="bi bi-folder-fill text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;">
@@ -46,7 +48,7 @@
                                     d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z">
                                 </path>
                             </svg><span style="color: var(--bs-navbar-active-color);margin-left: 0px;">Data Truk
-                                Angkutan</span></a><a class="nav-link" href="{{url('alat')}}"><svg
+                                Angkutan</span></a><a class="nav-link" href="{{ url('alat') }}"><svg
                                 xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="1em"
                                 viewBox="0 0 24 24" width="1em" fill="currentColor"
                                 class="text-center d-sm-inline-block me-md-3"
@@ -69,7 +71,7 @@
                                     </g>
                                 </g>
                             </svg><span style="color: var(--bs-navbar-active-color);margin-left: 0px;">Kinerja Alat
-                                Berat</span></a><a class="nav-link" href="{{url('truk')}}"><svg
+                                Berat</span></a><a class="nav-link" href="{{ url('truk') }}"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"
                                 fill="none" class="text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;">
@@ -86,7 +88,7 @@
                                     d="M14 7C13.4477 7 13 7.44772 13 8V14.05C13.1616 14.0172 13.3288 14 13.5 14C14.7095 14 15.7184 14.8589 15.95 16H17C17.5523 16 18 15.5523 18 15V10C18 9.73478 17.8946 9.48043 17.7071 9.29289L15.7071 7.29289C15.5196 7.10536 15.2652 7 15 7H14Z"
                                     fill="currentColor"></path>
                             </svg><span style="color: var(--bs-navbar-active-color);margin-left: 0px;">Kinerja Truk
-                                Angkutan</span></a><a class="nav-link" href="{{url('laporan')}}"><i
+                                Angkutan</span></a><a class="nav-link" href="{{ url('laporan') }}"><i
                                 class="fa fa-sticky-note text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
                                 style="color: var(--bs-navbar-active-color);margin-left: 0px;">Laporan</span></a></li>
@@ -115,12 +117,12 @@
                                             Ibadurrahman</span><img class="border rounded-circle img-profile"
                                             src="{{ asset('ta/assets/img/avatars/avatar3.jpeg') }}"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
-                                            class="dropdown-item" href="{{url('profile')}}"><i
+                                            class="dropdown-item" href="{{ url('profile') }}"><i
                                                 class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <div class="dropdown-divider point"></div><a class="dropdown-item"
-                                                href="{{route('logout')}}"
+                                                href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                             this.closest('form').submit();"><i
                                                     class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>{{ __('Logout') }}</a>
@@ -134,6 +136,7 @@
 
                 {{-- content --}}
                 @yield('content')
+                @include('sweetalert::alert')
                 {{-- end content --}}
             </div>
             <footer class="bg-white sticky-footer">
@@ -150,6 +153,51 @@
     <script src="{{ asset('ta/assets/js/chart.min.js') }}"></script>
     <script src="{{ asset('ta/assets/js/bs-init.js') }}"></script>
     <script src="{{ asset('ta/assets/js/theme.js') }}"></script>
+
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
+
+<script type="text/javascript">
+    $('.delete_confirm').click(function(event) {
+
+        var form = $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((willDelete) => {
+            if (willDelete) {
+                form.submit();
+            }
+        });
+    });
+    $('.edit_confirm').click(function(event) {
+
+        var form = $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Save it"
+        }).then((willEdit) => {
+            if (willEdit) {
+                form.submit();
+            }
+        });
+    });
+</script>
+
 
 </html>

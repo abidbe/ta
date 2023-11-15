@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('data_truks', function (Blueprint $table) {
             $table->id();
+            $table->string('nopol');
+            $table->year('year');
+            $table->string('kondisi');
+            $table->string('keterangan');
+            $table->string('image')->nullable(); 
             $table->timestamps();
         });
     }

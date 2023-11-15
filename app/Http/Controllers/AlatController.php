@@ -12,7 +12,7 @@ class AlatController extends Controller
      */
     public function index()
     {
-        return view('admin.alat');
+        return view('admin.alat.index');
     }
 
     /**

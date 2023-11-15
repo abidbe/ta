@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataAlat;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DataAlatController extends Controller
 {
@@ -12,7 +13,8 @@ class DataAlatController extends Controller
      */
     public function index()
     {
-        return view('admin.dataAlat');
+        $dataAlats = DataAlat::all();
+        return view('admin.dataAlat.index',compact('dataAlats'));
     }
 
     /**
@@ -20,7 +22,7 @@ class DataAlatController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.dataAlat.create');
     }
 
     /**
@@ -28,38 +30,66 @@ class DataAlatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // ddd($request->all());
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->storeAs('public/potoAlat', $imageName);
+
+        DataAlat::create([
+            'name' => ucfirst($request->name),
+            'year' => $request->year,
+            'kondisi' => $request->kondisi,
+            'keterangan' => ucfirst($request->keterangan),
+            'image' => $imageName,
+        ]);
+        
+        
+        Alert::success('Hore!', 'Data alat berat sudah ditambahkan!');
+        return redirect()->route('dataalat.index')->with('image',$imageName);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(DataAlat $dataAlat)
+    public function show($id)
     {
-        //
+        $dataAlat = DataAlat::findorfail($id);
+        return view('admin.dataAlat.show',compact('dataAlat'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DataAlat $dataAlat)
-    {
-        //
+    public function edit($id)
+    {   
+        $datAl = DataAlat::findorfail($id);
+        return view('admin.dataAlat.edit',compact('datAl'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DataAlat $dataAlat)
+    public function update(Request $request, $id)
     {
-        //
+        $datAl = DataAlat::findorfail($id);
+        $datAl->update([
+            'name' => ucfirst($request->name),
+            'year' => $request->year,
+            'kondisi' => $request->kondisi,
+            'keterangan' => ucfirst($request->keterangan),
+        ]);
+        return redirect()->route('dataalat.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DataAlat $dataAlat)
-    {
-        //
+    public function destroy($id)
+    {   
+        
+        $datAl = DataAlat::findorfail($id);
+        $datAl->delete();
+        Alert::success('Sukses!','Data alat berat berhasil dihapus');
+        return redirect()->route('dataalat.index');
     }
+    
 }

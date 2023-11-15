@@ -12,7 +12,7 @@ class TrukController extends Controller
      */
     public function index()
     {
-        return view('admin.truk');
+        return view('admin.truk.index');
     }
 
     /**

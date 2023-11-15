@@ -9,13 +9,17 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 text-nowrap">
-                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label
-                                class="form-label">Show&nbsp;<select class="d-inline-block form-select form-select-sm">
+                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                            <a href="{{ route('dataalat.create') }}" class="btn btn-success btn-icon-split me-4"
+                                role="button"><span class="text-white-50 icon"><i class="fas fa-plus"></i></span><span
+                                    class="text-white text">Create</span></a><label class="form-label">Show&nbsp;<select
+                                    class="d-inline-block form-select form-select-sm">
                                     <option value="10" selected="">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
-                                </select>&nbsp;</label></div>
+                                </select>&nbsp;</label>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input
@@ -35,51 +39,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Sumitomo SH350</td>
-                                <td>2020</td>
-                                <td>85%</td>
-                                <td>Baik/Layak</td>
-                                <td class="d-xl-flex"><a class="btn btn-info btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-edit text-white"></i></a><a
-                                        class="btn btn-warning btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-eye text-white"></i></a><a
-                                        class="btn btn-danger btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-trash text-white"></i></a></td>
-                            </tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr>
-                                <td>Hitachi 350</td>
-                                <td>2019</td>
-                                <td>80%</td>
-                                <td>Baik/Layak</td>
-                                <td><a class="btn btn-info btn-circle ms-1" role="button" style="text-align: justify;"><i
-                                            class="fas fa-edit text-white"></i></a><a
-                                        class="btn btn-warning btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-eye text-white"></i></a><a
-                                        class="btn btn-danger btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-trash text-white"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>Hitachi ZX210F</td>
-                                <td>2021</td>
-                                <td>90%</td>
-                                <td>Baik/Layak</td>
-                                <td><a class="btn btn-info btn-circle ms-1" role="button" style="text-align: justify;"><i
-                                            class="fas fa-edit text-white"></i></a><a
-                                        class="btn btn-warning btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-eye text-white"></i></a><a
-                                        class="btn btn-danger btn-circle ms-1" role="button"
-                                        style="text-align: justify;"><i class="fas fa-trash text-white"></i></a></td>
-                            </tr>
+                            @foreach ($dataAlats as $dataAlat)
+                                <tr>
+                                    <td>{{ $dataAlat->name }}</td>
+                                    <td>{{ $dataAlat->year }}</td>
+                                    <td>{{ $dataAlat->kondisi }}</td>
+                                    <td>{{ $dataAlat->keterangan }}</td>
+                                    <td class="d-xl-flex">
+                                        <a href="{{ route('dataalat.edit', $dataAlat) }}"
+                                            class="btn btn-info btn-circle ms-1" role="button"
+                                            style="text-align: justify;"><i class="fas fa-edit text-white"></i></a>
+                                        <a href="{{ route('dataalat.show',$dataAlat)}}" class="btn btn-warning btn-circle ms-1" role="button"
+                                            style="text-align: justify;"><i class="fas fa-eye text-white"></i></a>
+                                        <form action="{{ route('dataalat.destroy',$dataAlat)}}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-danger btn-circle ms-1 delete_confirm" type="Submit" 
+                                                style="text-align: justify;"><i class="fas fa-trash text-white"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr></tr>

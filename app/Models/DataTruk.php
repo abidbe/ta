@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DataTruk extends Model
 {
     use HasFactory;
+
+    protected $fillable = [    
+        'nopol',
+        'year',
+        'kondisi',
+        'keterangan',
+        'image',
+    ];
 }

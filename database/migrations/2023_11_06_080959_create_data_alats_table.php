@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('data_alats', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->year('year');
+            $table->string('kondisi');
+            $table->string('keterangan');
+            $table->string('image')->nullable(); 
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataTruk;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DataTrukController extends Controller
 {
@@ -12,7 +13,8 @@ class DataTrukController extends Controller
      */
     public function index()
     {
-        return view('admin.dataTruk');
+        $dataTruks = DataTruk::all();
+        return view('admin.dataTruk.index',compact('dataTruks'));
     }
 
     /**
@@ -20,7 +22,7 @@ class DataTrukController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.dataTruk.create');
     }
 
     /**
@@ -28,38 +30,63 @@ class DataTrukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // ddd($request->all());
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->storeAs('public/potoTruk', $imageName);
+
+        DataTruk::create([
+            'nopol' => ucfirst($request->nopol),
+            'year' => $request->year,
+            'kondisi' => $request->kondisi,
+            'keterangan' => ucfirst($request->keterangan),
+            'image' => $imageName,
+        ]);
+        
+        Alert::success('Sukses!', 'Data truk berhasil ditambahkan!');
+        return redirect()->route('datatruk.index')->with('image',$imageName);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(DataTruk $dataTruk)
+    public function show($id)
     {
-        //
+        $dataTruk = DataTruk::findorfail($id);
+        return view('admin.dataTruk.show',compact('dataTruk'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DataTruk $dataTruk)
+    public function edit($id)
     {
-        //
+        $dataTruk = DataTruk::findorfail($id);
+        return view('admin.dataTruk.edit',compact('dataTruk'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DataTruk $dataTruk)
+    public function update(Request $request, $id)
     {
-        //
+        $dataTruk = DataTruk::findorfail($id);
+        $dataTruk->update([
+            'nopol' => ucfirst($request->nopol),
+            'year' => $request->year,
+            'kondisi' => $request->kondisi,
+            'keterangan' => ucfirst($request->keterangan),
+        ]);
+        return redirect()->route('datatruk.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DataTruk $dataTruk)
+    public function destroy($id)
     {
-        //
+        $dataTruk = DataTruk::findorfail($id);
+        $dataTruk->delete();
+        Alert::success('Sukses!','Data truk berhasil dihapus!');
+        return redirect()->route('datatruk.index');
     }
 }
