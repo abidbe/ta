@@ -16,9 +16,18 @@ class DataAlat extends Model
         'keterangan',
         'image',
     ];
-    protected $guarded=[];
+    protected $guarded=['id'];
 
-    
+    public function scopeFilter($query,array $filters)
+    {
+        
+        $query->when($filters['search']?? false, function($query,$search){
+            return $query->where('name','like','%'.$search.'%')
+            ->orWhere('year','like','%'.$search.'%')
+            ->orWhere('kondisi','like','%'.$search.'%')
+            ->orWhere('keterangan','like','%'.$search.'%');
+        });
+    }
     
     
 }

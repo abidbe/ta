@@ -13,8 +13,10 @@ class DataTrukController extends Controller
      */
     public function index()
     {
-        $dataTruks = DataTruk::all();
-        return view('admin.dataTruk.index',compact('dataTruks'));
+        $dataTruks = DataTruk::latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        return view('admin.dataTruk.index',[
+            'dataTruks' => $dataTruks
+        ]);
     }
 
     /**
@@ -76,6 +78,7 @@ class DataTrukController extends Controller
             'kondisi' => $request->kondisi,
             'keterangan' => ucfirst($request->keterangan),
         ]);
+        Alert::success('Sukses!','Data truk berhasil diubah');
         return redirect()->route('datatruk.index');
     }
 

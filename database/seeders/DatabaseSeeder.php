@@ -25,15 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         
-        DataAlat::factory(10)->create();
-        DataAlat::factory()->create([
-            'name' => 'Bulldozer',
-            'year' => '2010',
-            'kondisi' => '90%',
-            'keterangan' => 'Baik/Layak',
-            'image' => 'Screenshot(763).png',
-        ]);
-
-        DataTruk::factory(10)->create();
+        DataAlat::factory(100)->create();
+        DataTruk::factory(100)->create();
     }
 }

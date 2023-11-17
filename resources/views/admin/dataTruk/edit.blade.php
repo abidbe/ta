@@ -7,14 +7,14 @@
             <p class="text-primary m-0 fw-bold"></p>
         </div>
         <div class="card-body d-xl-flex justify-content-xl-center">
-            <form style="max-width: 700px;" role="form" method="post" action="{{route('datatruk.update', $datAl) }}"  enctype="multipart/form-data">
+            <form style="max-width: 700px;" role="form" method="post" action="{{route('datatruk.update', $dataTruk) }}"  enctype="multipart/form-data" id="editConfirm">
                 @csrf
                 @method('patch')
-                <div class="form-group mb-3"><label class="form-label">No Polisi</label><input class="form-control" type="text" value="{{$datAl->nopol}}" required placeholder="Nama" name="nopol" />
-                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" value="{{$datAl->year}}" required placeholder="Tahun" name="year" /></div>
-                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" value="{{$datAl->kondisi}}" required placeholder="Kondisi" name="kondisi" /></div>
+                <div class="form-group mb-3"><label class="form-label">No Polisi</label><input class="form-control" type="text" value="{{$dataTruk->nopol}}" required placeholder="Nama" name="nopol" />
+                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" value="{{$dataTruk->year}}" required placeholder="Tahun" name="year" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" value="{{$dataTruk->kondisi}}" required placeholder="Kondisi" name="kondisi" /></div>
                 </div>
-                <div class="form-group mb-3"><label class="form-label">Keterangan</label><input id="summernote" class="form-control" name="keterangan" value="{{$datAl->keterangan}}" placeholder="Keterangan"></input></div>
+                <div class="form-group mb-3"><label class="form-label">Keterangan</label><input id="summernote" class="form-control" name="keterangan" value="{{$dataTruk->keterangan}}" placeholder="Keterangan"></input></div>
                 <div class="color form-group mb-3"><label class="form-label" style="margin-top: 15px;">Foto</label>
                     <section>
                         <div class="container-fluid">
@@ -29,7 +29,7 @@
                     </section>
                 </div>
                 <hr style="margin-top: 30px;margin-bottom: 10px;" />
-                <div class="form-group mb-3"><button id="submitButton" class="btn btn-primary d-block w-100" type="submit"><i class="fas fa-save"></i> Save</button><a class="btn btn-danger d-block w-100" role="button" href="{{route('datatruk.index')}}" style="margin-top: 15px;"><i class="fas fa-arrow-left"></i> Cancel</a></div>
+                <div class="form-group mb-3"><button id="submitButton" class="btn btn-primary d-block w-100" type="button" onclick="confirmEdit()"><i class="fas fa-save"></i> Save</button><a class="btn btn-danger d-block w-100" role="button" href="{{route('datatruk.index')}}" style="margin-top: 15px;"><i class="fas fa-arrow-left"></i> Cancel</a></div>
             </form>
         </div>
     </div>

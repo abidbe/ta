@@ -161,43 +161,43 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
 
 <script type="text/javascript">
-    $('.delete_confirm').click(function(event) {
-
-        var form = $(this).closest("form");
-        event.preventDefault();
+     function confirmDelete() {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
+            title: 'Apakah Anda yakin?',
+            text: 'Anda tidak akan dapat mengembalikan tindakan ini!',
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((willDelete) => {
-            if (willDelete) {
-                form.submit();
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit form jika pengguna mengonfirmasi
+                document.getElementById('deleteForm').submit();
+                // Tampilkan notifikasi sukses setelah penghapusan berhasil
+                
             }
         });
-    });
-    $('.edit_confirm').click(function(event) {
-
-        var form = $(this).closest("form");
-        event.preventDefault();
+    }
+     function confirmEdit() {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
+            title: 'Ubah Data!',
+            text: 'Apakah anda yakin ingin mengubah data ini?',
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Save it"
-        }).then((willEdit) => {
-            if (willEdit) {
-                form.submit();
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, ubah!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit form jika pengguna mengonfirmasi
+                document.getElementById('editConfirm').submit();
+                // Tampilkan notifikasi sukses setelah penghapusan berhasil
+                
             }
         });
-    });
+    }
 </script>
-
+    
 
 </html>

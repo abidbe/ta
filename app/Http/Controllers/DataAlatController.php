@@ -12,9 +12,14 @@ class DataAlatController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $dataAlats = DataAlat::all();
-        return view('admin.dataAlat.index',compact('dataAlats'));
+    {   
+        // dd(request('search'));
+        
+        $dataAlat = DataAlat::latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        
+        return view('admin.dataAlat.index',[
+            'dataAlats' => $dataAlat
+        ]);
     }
 
     /**
@@ -30,7 +35,7 @@ class DataAlatController extends Controller
      */
     public function store(Request $request)
     {
-        // ddd($request->all());
+        // dd($request->all());
         $imageName = time().'.'.$request->image->extension();
         $request->image->storeAs('public/potoAlat', $imageName);
 
@@ -77,6 +82,7 @@ class DataAlatController extends Controller
             'kondisi' => $request->kondisi,
             'keterangan' => ucfirst($request->keterangan),
         ]);
+        Alert::success('Sukses!','Data alat berat berhasil diubah');
         return redirect()->route('dataalat.index');
     }
 

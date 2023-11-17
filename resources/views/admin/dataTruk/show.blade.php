@@ -43,25 +43,24 @@
                     <hr />
 
                     <div class="container">
-                        <div class="row justify-content-center gap-2">
-                            <div class="col-md-4">
-                                
-                                    <a style="width: 100%;" href="{{ route('datatruk.edit', $dataTruk) }}" class="btn btn-success btn-block">Ubah</a>
-                                
-                            </div>
-                            <div class="col-md-4">
-                               
-                                    <form action="{{ route('datatruk.destroy', $dataTruk) }}" method="post">
+                        <div class="row d-flex justify-content-center ">
+                            <div class="row d-flex justify-content-center gap-2 ">
+                                <div class="row">
+                                    <a style="width: 100%;" href="{{ route('datatruk.edit', $dataTruk) }}"
+                                        class="btn btn-success btn-block">Ubah</a>
+                                </div>
+                                <div class="row">
+                                    <form class="p-0" action="{{ route('datatruk.destroy', $dataTruk) }}" method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-block" style="width: 100%;" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</button>
+                                        <button type="submit" class="btn btn-danger btn-block"
+                                            style="width: 100%;">Hapus</button>
                                     </form>
-                                
-                            </div>
-                            <div class="col-md-4">
-                               
-                                    <a style="width: 100%;" href="{{ route('datatruk.index') }}" class="btn btn-secondary btn-block">Kembali</a>
-                                
+                                </div>
+                                <div class="row">
+                                    <a style="width: 100%;" href="{{ route('datatruk.index') }}"
+                                        class="btn btn-secondary btn-block">Kembali</a>
+                                </div>
                             </div>
                         </div>
                     </div>
