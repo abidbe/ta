@@ -18,3 +18,7 @@
     width: 90% !important;
     
 }
+
+.no-border-bottom {
+    border-bottom: none !important;
+}

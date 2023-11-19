@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\DataAlat;
 use App\Models\DataTruk;
+use App\Models\Minyak;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -27,5 +28,6 @@ class DatabaseSeeder extends Seeder
         
         DataAlat::factory(50)->create();
         DataTruk::factory(50)->create();
+        Minyak::factory(50)->create();
     }
 }

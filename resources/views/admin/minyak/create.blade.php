@@ -13,15 +13,6 @@
                     @csrf
                     @method('POST')
                     <div class="form-group mb-3">
-                        @if (session('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session('error') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form-group mb-3">
                         <label class="form-label">Type</label>
                         <select class="form-select" aria-label="Default select example" name="type" required>
                             <option selected disabled hidden>Select One--</option>
@@ -38,8 +29,8 @@
                                     id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     <select class="form-select" aria-label="Default select example" name="data_alats_id"
-                                        id="selectDataAlat">
-                                        <option selected>Alat Berat</option>
+                                        id="selectDataAlat" required>
+                                        <option selected  disabled hidden>Alat Berat</option>
                                         @foreach ($dataAlat as $dA)
                                             <option value="{{ $dA->id }}">{{ $dA->name }}</option>
                                         @endforeach
@@ -48,11 +39,11 @@
                             </div>
                             <div class="form-check  d-flex align-items-center gap-2">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked>
+                                    id="flexRadioDefault2" required>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     <select class="form-select" aria-label="Default select example" name="data_truks_id"
-                                        id="selectJenisUnit">
-                                        <option selected>Truk Angkutan</option>
+                                        id="selectJenisUnit" required>
+                                        <option selected  disabled hidden>Truk Angkutan</option>
                                         @foreach ($dataTruk as $dT)
                                             <option value="{{ $dT->id }}">{{ $dT->nopol }}</option>
                                         @endforeach
@@ -89,7 +80,7 @@
         </div>
     </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         // Disable elemen select yang tidak dipilih saat halaman dimuat
@@ -107,4 +98,4 @@
             }
         });
     });
-</script>
+</script> --}}

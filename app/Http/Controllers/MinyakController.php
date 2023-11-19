@@ -14,20 +14,20 @@ class MinyakController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         //ambil data minyak dan search serta pagination
-        $minyaks = Minyak::with('dataAlat','dataTruk')
-        ->latest()
-        ->filter(request(["search"]))
-        ->paginate(10)
-        ->withQueryString();
+        $minyaks = Minyak::with('dataAlat', 'dataTruk')
+            ->latest()
+            ->filter(request(["search"]))
+            ->paginate(10)
+            ->withQueryString();
 
         //saldo minyak
         $totalPemasukan = Minyak::Pemasukan()->sum('amount');
         $totalPengeluaran = Minyak::Pengeluaran()->sum('amount');
         $saldoMinyak = $totalPemasukan - $totalPengeluaran;
 
-        return view('admin.minyak.index', compact('minyaks','saldoMinyak','totalPemasukan','totalPengeluaran'));
+        return view('admin.minyak.index', compact('minyaks', 'saldoMinyak', 'totalPemasukan', 'totalPengeluaran'));
     }
 
     /**
@@ -37,8 +37,8 @@ class MinyakController extends Controller
     {
         $dataAlat = DataAlat::all();
         $dataTruk = DataTruk::all();
-        
-        return view('admin.minyak.create',compact('dataAlat','dataTruk'));
+
+        return view('admin.minyak.create', compact('dataAlat', 'dataTruk'));
     }
 
     /**
@@ -46,45 +46,27 @@ class MinyakController extends Controller
      */
     public function store(Request $request)
     {
-    // {   request()->validate([
-    //     'type' => 'required',
-    // ]);
-    
-    // Alert::success('Gagal!', 'Data minyak gagal ditambahkan!');
-    // dd($request->all)->with('success', 'Data berhasil disimpan');
-
-    //     Minyak::create([
-    //         'type' => $request->type,
-    //         'data_alat_id' => $request->data_alat_id,
-    //         'data_truk_id' => $request->data_truk_id,
-    //         'amount' => $request->amount,
-    //         'keterangan' => ucfirst($request->keterangan),
-    //         'date' => $request->date,
-    //     ]);
-    //     Alert::success('Sukses!', 'Data minyak berhasil ditambahkan!');
-    //     return redirect()->route('minyak.index');
-
-    try {
-        $request->validate([
-            'type' => 'required|not_in:Select One--',
-            'data_alats_id' => 'not_in:Data Alat',
-            'data_truks_id' => 'not_in:Data Truk',
-        ]);
-        Minyak::create([
-                    'type' => $request->type,
-                    'amount' => $request->amount,
-                    'keterangan' => ucfirst($request->keterangan),
-                    'date' => $request->date,
-                    'data_alats_id' => $request->data_alats_id,
-                    'data_truks_id' => $request->data_truks_id,
-                ]);
-        // dd($request->all());
-        Alert::success('Sukses!', 'Data minyak berhasil ditambahkan!');
-        return redirect()->route('minyak.index');
-    } catch (\Exception $e) {
-        Alert::error('Ada data kosong!', 'Periksa kembali data yang anda masukkan!');
-        return redirect()->route('minyak.create');
-    }
+        try {
+            $request->validate([
+                'type' => 'required|not_in:Select One--',
+                'data_alats_id' => 'not_in:Data Alat',
+                'data_truks_id' => 'not_in:Data Truk',
+            ]);
+            Minyak::create([
+                'type' => $request->type,
+                'amount' => $request->amount,
+                'keterangan' => ucfirst($request->keterangan),
+                'date' => $request->date,
+                'data_alats_id' => $request->data_alats_id,
+                'data_truks_id' => $request->data_truks_id,
+            ]);
+            dd($request->all());
+            Alert::success('Sukses!', 'Data minyak berhasil ditambahkan!');
+            return redirect()->route('minyak.index');
+        } catch (\Exception $e) {
+            Alert::error('Ada data kosong!', 'Periksa kembali data yang anda masukkan!');
+            return redirect()->route('minyak.create');
+        }
     }
 
     /**
@@ -93,7 +75,9 @@ class MinyakController extends Controller
     public function show($id)
     {
         $minyak = Minyak::findorfail($id);
-        return view('admin.minyak.show', compact('minyak'));
+        $dataAlat = DataAlat::all();
+        $dataTruk = DataTruk::all();
+        return view('admin.minyak.show', compact('minyak', 'dataAlat', 'dataTruk'));
     }
 
     /**
@@ -102,7 +86,9 @@ class MinyakController extends Controller
     public function edit($id)
     {
         $minyak = Minyak::findorfail($id);
-        return view('admin.minyak.edit', compact('minyak'));
+        $dataAlat = DataAlat::all();
+        $dataTruk = DataTruk::all();
+        return view('admin.minyak.edit', compact('minyak', 'dataAlat', 'dataTruk'));
     }
 
     /**
@@ -110,15 +96,47 @@ class MinyakController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $minyak = Minyak::findorfail($id);
+        try {
+            $request->validate([
+                'type' => 'required',
+                'amount' => 'required',
+                'date' => 'required|date',
+            ]);
 
+            // Dapatkan objek Minyak berdasarkan ID
+            $minyak = Minyak::findOrFail($id);
+
+            // Setel nilai-nilai yang diterima dari formulir
+            $minyak->update([
+                'type' => $request->type,
+                'amount'=> $request->amount,
+                'date'=> $request->date,
+                'keterangan'=>ucfirst($request->keterangan),
+                'data_alats_id'=> $request->data_alats_id,
+                'data_truks_id'=> $request->data_truks_id,
+            ]);
+
+            // Simpan perubahan ke database
+            
+
+            // Tambahkan pesan sukses atau lakukan tindakan lain jika perlu
+            Alert::success('Sukses!', 'Data minyak berhasil diubah');
+
+            // Redirect ke halaman index
+            return redirect()->route('minyak.index');
+        } catch (\Exception $exception) {
+
+            Alert::error('Ada data kosong!', 'Periksa kembali data yang anda masukkan!');
+            return redirect()->back();
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Minyak $minyak)
     {
-        //
+        $minyak->delete();
+        Alert::success('Sukses!', 'Data minyak berhasil dihapus');
+        return redirect()->route('minyak.index');
     }
 }

@@ -76,25 +76,24 @@
                                             </form>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="tg-0pky" colspan="2"></td>
-                                    <td class="tg-0pky"></td>
-                                    <td class="tg-0pky"></td>
-                                    <td class="tg-zv4m"></td>
-                                    <td class="tg-zv4m"></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="tg-0pky" colspan="2"></td>
-                                    <td class="tg-0pky" colspan="2"></td>
-                                    <td class="tg-zv4m"></td>
-                                    <td class="tg-zv4m"></td>
-                                  </tr>
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center">No data available</td>
                                 </tr>
                             @endforelse
                         </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="text-end fw-bold border-end">Total:</td>
+                                    <td class="border-end">{{ $totalPemasukan }}</td>
+                                    <td class="border-end">{{ $totalPengeluaran }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-end fw-bold border-end">Sisa Minyak:</td>
+                                    <td  class="border-end" colspan="2">{{ $saldoMinyak }}</td>
+                                </tr>
+                            </tfoot>
+                        
                     </table>
                 </div>
                 <div class="row">
@@ -103,11 +102,6 @@
                             Showing {{ $minyaks->firstItem() }} to {{ $minyaks->lastItem() }} of {{ $minyaks->total() }} entries
                         </p>
                     </div>
-                    {{-- <div class="col-md-6  text-start">
-                        <li class="mb-0">Total Pemasukkan: {{$totalPemasukan}}</li>
-                        <li class="mb-0">Sisa Pengeluaran: {{$totalPengeluaran}}</li>
-                        <li class="mb-0">Sisa Minyak: {{$saldoMinyak}}</li>
-                    </div> --}}
                     <div class="col-md-12 mt-3">
                         <div class="d-flex justify-content-end">
                             {{ $minyaks->links() }}

@@ -133,6 +133,7 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
 
 <script type="text/javascript">
+    // untuk function konfirmasi delete
     function confirmDelete() {
         Swal.fire({
             title: 'Apakah Anda yakin?',
@@ -151,7 +152,7 @@
             }
         });
     }
-
+// untuk function konfirmasi edit
     function confirmEdit() {
         Swal.fire({
             title: 'Ubah Data!',
@@ -165,11 +166,31 @@
             if (result.isConfirmed) {
                 // Submit form jika pengguna mengonfirmasi
                 document.getElementById('editConfirm').submit();
-                // Tampilkan notifikasi sukses setelah penghapusan berhasil
+                
 
             }
         });
     }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- buat disable select data alat dan data truk --}}
+<script>
+    $(document).ready(function() {
+        // Disable elemen select yang tidak dipilih saat halaman dimuat
+        $("#selectDataAlat").prop("disabled", true);
+
+        // Tambahkan event listener untuk radio button
+        $('input[type="radio"]').change(function() {
+            if ($(this).attr("id") == "flexRadioDefault1") {
+                $("#selectDataAlat").prop("disabled", false);
+                $("#selectJenisUnit").prop("disabled", true);
+            }
+            if ($(this).attr("id") == "flexRadioDefault2") {
+                $("#selectDataAlat").prop("disabled", true);
+                $("#selectJenisUnit").prop("disabled", false);
+            }
+        });
+    });
 </script>
 
 

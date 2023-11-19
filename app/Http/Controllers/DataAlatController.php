@@ -89,7 +89,6 @@ class DataAlatController extends Controller
      */
     public function destroy($id)
     {   
-        
         $datAl = DataAlat::findorfail($id);
         $datAl->delete();
         Alert::success('Sukses!','Data alat berat berhasil dihapus');

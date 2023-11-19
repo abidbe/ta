@@ -6,39 +6,57 @@
         <div class="row justify-content-center mt-4">
             <div class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6">
                 <div class="card clean-card">
-                    <img class="card-img-top w-100 d-block" src="{{ asset('storage/potoAlat/' . $dataAlat->image) }}"
-                        alt="{{ $dataAlat->name }}" />
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col">
-                                <p class="labels"><strong>Nama</strong></p>
+                                <p class="labels"><strong>Tanggal</strong></p>
                             </div>
                             <div class="col">
-                                <p class="labels">{{ $dataAlat->name }}</p>
+                                <p class="labels">{{ \Carbon\Carbon::parse($minyak->date)->isoFormat('dddd, DD MMMM YYYY') }}</p>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <p class="labels"><strong>Tahun</strong></p>
+                                <p class="labels"><strong>Jenis Unit</strong></p>
                             </div>
                             <div class="col">
-                                <p class="labels">{{ $dataAlat->year }}</p>
+                                <p class="labels">
+                                    @if ($minyak->data_alats_id)
+                                        {{ $minyak->dataAlat->name }}
+                                    @endif
+                                    @if ($minyak->data_truks_id)
+                                        {{ $minyak->dataTruk->nopol }}
+                                    @endif
+                                </p>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <p class="labels"><strong>Kondisi</strong></p>
+                        @if ($minyak->type == 'Pemasukan')
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <p class="labels"><strong>Pemasukan (perliter)</strong></p>
+                                </div>
+                                <div class="col">
+                                    <p class="labels">{{ $minyak->amount }}</p>
+                                </div>
                             </div>
-                            <div class="col">
-                                <p class="labels">{{ $dataAlat->kondisi }}</p>
+                        @endif
+                        @if ($minyak->type == 'Pengeluaran')
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <p class="labels"><strong>Pengeluaran (perliter)</strong></p>
+                                </div>
+                                <div class="col">
+                                    <p class="labels">{{ $minyak->amount }}</p>
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                         <div class="row mb-3">
                             <div class="col">
                                 <p class="labels"><strong>Keterangan</strong></p>
                             </div>
                             <div class="col">
-                                <p class="labels">{{ $dataAlat->keterangan }}</p>
+                                <p class="labels">{{ $minyak->keterangan }}</p>
                             </div>
                         </div>
                         <hr />
@@ -47,11 +65,11 @@
                             <div class="row d-flex justify-content-center ">
                                 <div class="row d-flex justify-content-center gap-2 ">
                                     <div class="row">
-                                        <a style="width: 100%;" href="{{ route('dataalat.edit', $dataAlat) }}"
+                                        <a style="width: 100%;" href="{{ route('minyak.edit', $minyak) }}"
                                             class="btn btn-success btn-block">Ubah</a>
                                     </div>
                                     <div class="row">
-                                        <form class="p-0" action="{{ route('dataalat.destroy', $dataAlat) }}" method="post">
+                                        <form class="p-0" action="{{ route('minyak.destroy', $minyak) }}" method="post">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-block"
@@ -59,7 +77,7 @@
                                         </form>
                                     </div>
                                     <div class="row">
-                                        <a style="width: 100%;" href="{{ route('dataalat.index') }}"
+                                        <a style="width: 100%;" href="{{ route('minyak.index') }}"
                                             class="btn btn-secondary btn-block">Kembali</a>
                                     </div>
                                 </div>
