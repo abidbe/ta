@@ -28,4 +28,8 @@ class DataTruk extends Model
             ->orWhere('keterangan','like','%'.$search.'%');
         });
     }
+    public function minyak()
+    {
+        return $this->belongsTo(Minyak::class,'data_truks_id','id');
+    }   
 }

@@ -28,6 +28,9 @@ class DataAlat extends Model
             ->orWhere('keterangan','like','%'.$search.'%');
         });
     }
-    
+    public function minyak()
+    {
+        return $this->belongsTo(Minyak::class,'data_alats_id','id');
+    }
     
 }

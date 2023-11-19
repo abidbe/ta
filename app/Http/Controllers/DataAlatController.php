@@ -15,11 +15,9 @@ class DataAlatController extends Controller
     {   
         // dd(request('search'));
         
-        $dataAlat = DataAlat::latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        $dataAlats = DataAlat::latest()->filter(request(['search']))->paginate(10)->withQueryString();
         
-        return view('admin.dataAlat.index',[
-            'dataAlats' => $dataAlat
-        ]);
+        return view('admin.dataAlat.index',compact('dataAlats'));
     }
 
     /**

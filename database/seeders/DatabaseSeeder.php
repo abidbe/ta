@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         
-        DataAlat::factory(100)->create();
-        DataTruk::factory(100)->create();
+        DataAlat::factory(50)->create();
+        DataTruk::factory(50)->create();
     }
 }
