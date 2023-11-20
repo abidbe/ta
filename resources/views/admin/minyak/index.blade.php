@@ -50,12 +50,12 @@
                                     </td>
                                     <td class="border-end">
                                         @if($minyak->type == 'Pemasukan')
-                                        {{ $minyak->amount }}
+                                        {{ number_format($minyak->amount, 0, ',', '.') }}
                                         @endif
                                     </td>
                                     <td class="border-end">
                                         @if($minyak->type == 'Pengeluaran')
-                                        {{ $minyak->amount }}
+                                        {{ number_format($minyak->amount, 0, ',', '.') }}
                                         @endif
                                     </td>
                                     <td class="border-end">{{ $minyak->keterangan }}</td>
@@ -85,12 +85,12 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="2" class="text-end fw-bold border-end">Total:</td>
-                                    <td class="border-end">{{ $totalPemasukan }}</td>
-                                    <td class="border-end">{{ $totalPengeluaran }}</td>
+                                    <td class="border-end">{{ number_format($totalPemasukan, 0, ',', '.') }}</td>
+                                    <td class="border-end">{{ number_format($totalPengeluaran, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="text-end fw-bold border-end">Sisa Minyak:</td>
-                                    <td  class="border-end" colspan="2">{{ $saldoMinyak }}</td>
+                                    <td  class="border-end" colspan="2">{{ number_format($saldoMinyak, 0, ',', '.') }}</td>
                                 </tr>
                             </tfoot>
                         

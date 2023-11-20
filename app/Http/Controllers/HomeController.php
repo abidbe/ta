@@ -2,64 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Home;
-use Illuminate\Http\Request;
+use App\Charts\EstimasitonaseChart;
+use App\Charts\PenggunaanminyakChart;
+use App\Models\Batubara;
+use App\Models\DataAlat;
+use App\Models\DataTruk;
+use App\Models\Minyak;
 
 class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PenggunaanminyakChart $chart, EstimasitonaseChart $Echart)
     {
-        return view('admin.dashboard');
-    }
+        //buat chart
+        $chart = $chart->build();
+        $Echart = $Echart->build();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        //data minyak
+        $minyak = Minyak::all();
+        $totalPemasukan = Minyak::Pemasukan()->sum('amount');
+        $totalPengeluaran = Minyak::pengeluaran()->sum('amount');
+        $saldoMinyak = $totalPemasukan - $totalPengeluaran;
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        //data alat
+        $dataAlat = DataAlat::all();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Home $home)
-    {
-        //
-    }
+        //data truk
+        $dataTruk = DataTruk::all();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Home $home)
-    {
-        //
-    }
+        //data batu bara
+        $batubara = Batubara::all();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Home $home)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Home $home)
-    {
-        //
+        return view('admin.dashboard', compact(
+            'minyak',
+            'totalPemasukan',
+            'totalPengeluaran',
+            'saldoMinyak',
+            'chart',
+            'dataTruk',
+            'dataAlat',
+            'batubara',
+            'Echart'
+        ));
     }
 }

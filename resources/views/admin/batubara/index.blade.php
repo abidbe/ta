@@ -64,7 +64,8 @@
                                         {{ $batubara->jumlah_bucket }}
                                     </td>
                                     <td class="border-end">
-                                        {{ $batubara->estimasi_tonase }}
+                                        {{ number_format($batubara->estimasi_tonase, 2, ',', '.') }}
+
                                     </td>
                                     <td class="border-end">
                                         {{ $batubara->dt_gendong }}
