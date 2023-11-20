@@ -2,7 +2,6 @@
 @section('content')
     <div class="container-fluid text-center">
         <h3 class="text-dark mt-4">Detail Data Minyak</h3>
-
         <div class="row justify-content-center mt-4">
             <div class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6">
                 <div class="card clean-card">

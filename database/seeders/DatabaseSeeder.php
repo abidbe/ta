@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Batubara;
 use App\Models\DataAlat;
 use App\Models\DataTruk;
 use App\Models\Minyak;
@@ -29,5 +30,6 @@ class DatabaseSeeder extends Seeder
         DataAlat::factory(50)->create();
         DataTruk::factory(50)->create();
         Minyak::factory(50)->create();
+        Batubara::factory(50)->create();
     }
 }

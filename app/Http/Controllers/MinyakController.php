@@ -60,7 +60,7 @@ class MinyakController extends Controller
                 'data_alats_id' => $request->data_alats_id,
                 'data_truks_id' => $request->data_truks_id,
             ]);
-            dd($request->all());
+            // dd($request->all());
             Alert::success('Sukses!', 'Data minyak berhasil ditambahkan!');
             return redirect()->route('minyak.index');
         } catch (\Exception $e) {

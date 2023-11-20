@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BatubaraController;
 use App\Http\Controllers\DataAlatController;
 use App\Http\Controllers\DataTrukController;
 use App\Http\Controllers\HomeController;
@@ -33,10 +34,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     
-
     Route::resource('/dataalat', DataAlatController::class);
     Route::resource('/datatruk', DataTrukController::class);
     Route::resource('/minyak', MinyakController::class);
+    Route::resource('/batubara', BatubaraController::class);
     
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
 

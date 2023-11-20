@@ -32,4 +32,8 @@ class DataTruk extends Model
     {
         return $this->belongsTo(Minyak::class,'data_truks_id','id');
     }   
+    public function batubara()
+    {
+        return $this->belongsTo(Batubara::class,'batubaras_id','id');
+    }   
 }

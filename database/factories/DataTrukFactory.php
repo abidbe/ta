@@ -17,7 +17,7 @@ class DataTrukFactory extends Factory
     public function definition(): array
     {
         return [
-            'nopol' => ucfirst(fake()->word()),
+            'nopol' => 'BH ' . fake()->numberBetween(1000, 9999) . ' ' . strtoupper(fake()->randomLetter) . strtoupper(fake()->randomLetter),
             'year' => fake()->numberBetween(2000,2024),
             'kondisi' => fake()->numberBetween(0, 100).'%',
             'keterangan' => fake()->randomElement(array('Baik','Cukup','Buruk')),

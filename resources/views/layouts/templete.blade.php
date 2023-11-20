@@ -61,6 +61,12 @@
                                 style="color: var(--bs-navbar-active-color);margin-left: 10px;">Kelola Minyak</span></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ \Route::is('batubara.*') ? 'active' : '' }}" href="{{ route('batubara.index') }}"><i
+                                class="fas fa-bahai text-center d-sm-inline-block me-md-3"
+                                style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
+                                style="color: var(--bs-navbar-active-color);margin-left: 5px;">Kelola Batubara</span></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ \Route::is('laporan') ? 'active' : '' }}" href="{{ url('laporan') }}"><i
                                 class="fas fa-clipboard text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
