@@ -98,15 +98,13 @@
                             @endforelse
                         </tbody>
                         <tfoot>
-                            {{-- <tr>
-                                <td colspan="2" class="text-end fw-bold border-end">Total:</td>
-                                <td class="border-end">{{ $totalPemasukan }}</td>
-                                <td class="border-end">{{ $totalPengeluaran }}</td>
-                            </tr>
                             <tr>
-                                <td colspan="2" class="text-end fw-bold border-end">Sisa batubara:</td>
-                                <td class="border-end" colspan="2">{{ $saldobatubara }}</td>
-                            </tr> --}}
+                                <td colspan="4" class="text-end fw-bold border-end">Total:</td>
+                                <td class="border-end">{{ number_format($batubara->sum('jumlah_retase'), 0, ',', '.') }}</td>
+                                <td class="border-end">{{ number_format($batubara->sum('jumlah_bucket'), 0, ',', '.') }}</td>
+                                <td class="border-end">{{ number_format($batubara->sum('estimasi_tonase'), 2, ',', '.') }}</td>
+                            </tr>
+                            
                         </tfoot>
 
                     </table>

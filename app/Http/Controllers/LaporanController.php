@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Laporan;
-use Illuminate\Http\Request;
+use App\Models\Batubara;
+use App\Models\Minyak;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LaporanController extends Controller
 {
@@ -14,52 +15,24 @@ class LaporanController extends Controller
     {
         return view('admin.laporan.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function cetakLaporanBatubara($awal, $akhir)
     {
-        //
+        // dd($awal, $akhir);
+        $batubaras = Batubara::whereBetween('date', [$awal, $akhir])->oldest('date')->get();
+
+        $totalRetase = $batubaras->sum('jumlah_retase');
+        $totalBucket = $batubaras->sum('jumlah_bucket');
+        $totalEstimasiTonase = $batubaras->sum('estimasi_tonase');
+
+        return view('admin.laporan.cetakBatubara', compact('batubaras', 'awal', 'akhir', 'totalRetase', 'totalBucket', 'totalEstimasiTonase'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function cetakLaporanMinyak($awal, $akhir)
     {
-        //
-    }
+        $minyaks = Minyak::whereBetween('date', [$awal, $akhir])->oldest('date')->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Laporan $laporan)
-    {
-        //
-    }
+        $totalPemasukan = $minyaks->where('type', 'Pemasukan')->sum('amount');
+        $totalPengeluaran = $minyaks->where('type', 'Pengeluaran')->sum('amount');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Laporan $laporan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Laporan $laporan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Laporan $laporan)
-    {
-        //
+        return view('admin.laporan.cetakMinyak', compact('minyaks', 'awal', 'akhir', 'totalPemasukan', 'totalPengeluaran'));
     }
 }

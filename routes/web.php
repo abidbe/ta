@@ -40,8 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/batubara', BatubaraController::class);
     
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
-
-    
+    Route::get('/laporan/batubara/{awal}/{akhir}', [LaporanController::class, 'cetakLaporanBatubara'])->name('laporan.cetak.batubara');
+    Route::get('/laporan/minyak/{awal}/{akhir}', [LaporanController::class, 'cetakLaporanMinyak'])->name('laporan.cetak.minyak');
 });
 require __DIR__ . '/auth.php';
 
