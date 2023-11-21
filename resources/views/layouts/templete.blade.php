@@ -41,6 +41,7 @@
                             <span style="color: var(--bs-navbar-active-color); margin:0;">Dashboard</span>
                         </a>
                     </li>
+                    @can('admin')
                     {{-- <li class="nav-item"></li> --}}
                     <li class="nav-item "><a class="nav-link {{ \Route::is('dataalat.*') ? 'active' : '' }}"
                             href="{{ url('dataalat') }}"><i class="fas fa-tractor text-center d-sm-inline-block me-md-3"
@@ -66,6 +67,7 @@
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
                                 style="color: var(--bs-navbar-active-color);margin-left: 5px;">Kelola Batubara</span></a>
                     </li>
+                    @endcan
                     <li class="nav-item">
                         <a class="nav-link {{ \Route::is('laporan') ? 'active' : '' }}" href="{{ url('laporan') }}"><i
                                 class="fas fa-clipboard text-center d-sm-inline-block me-md-3"
@@ -92,8 +94,7 @@
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
                                         aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
                                             class="d-none d-lg-inline me-2 text-gray-600 small">Abid
-                                            Ibadurrahman</span><img class="border rounded-circle img-profile"
-                                            src="{{ asset('ta/assets/img/avatars/avatar3.jpeg') }}"></a>
+                                            Ibadurrahman </span><span class="pt-1">▼</span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
                                             class="dropdown-item" href="{{ url('profile') }}"><i
                                                 class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>

@@ -34,14 +34,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     
-    Route::resource('/dataalat', DataAlatController::class);
-    Route::resource('/datatruk', DataTrukController::class);
-    Route::resource('/minyak', MinyakController::class);
-    Route::resource('/batubara', BatubaraController::class);
     
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
     Route::get('/laporan/batubara/{awal}/{akhir}', [LaporanController::class, 'cetakLaporanBatubara'])->name('laporan.cetak.batubara');
     Route::get('/laporan/minyak/{awal}/{akhir}', [LaporanController::class, 'cetakLaporanMinyak'])->name('laporan.cetak.minyak');
+});
+Route::middleware('admin')->group(function(){
+    Route::resource('/dataalat', DataAlatController::class);
+    Route::resource('/datatruk', DataTrukController::class);
+    Route::resource('/minyak', MinyakController::class);
+    Route::resource('/batubara', BatubaraController::class);
 });
 require __DIR__ . '/auth.php';
 
