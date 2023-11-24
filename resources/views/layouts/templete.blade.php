@@ -43,6 +43,10 @@
                     </li>
                     @can('admin')
                     {{-- <li class="nav-item"></li> --}}
+                    <li class="nav-item "><a class="nav-link {{ \Route::is('user.*') ? 'active' : '' }}"
+                            href="{{ url('user') }}"><i class="fas fa-users-cog text-center d-sm-inline-block me-md-3"
+                                style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
+                                style="color: var(--bs-navbar-active-color);margin-left: 2px;">Data User</span></a></li>
                     <li class="nav-item "><a class="nav-link {{ \Route::is('dataalat.*') ? 'active' : '' }}"
                             href="{{ url('dataalat') }}"><i class="fas fa-tractor text-center d-sm-inline-block me-md-3"
                                 style="color: var(--bs-navbar-active-color);padding-right: 0;margin-right: 0px;font-size: 15px;"></i><span
@@ -141,24 +145,22 @@
 
 <script type="text/javascript">
     // untuk function konfirmasi delete
-    function confirmDelete() {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: 'Anda tidak akan dapat mengembalikan tindakan ini!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, hapus!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Submit form jika pengguna mengonfirmasi
-                document.getElementById('deleteForm').submit();
-                // Tampilkan notifikasi sukses setelah penghapusan berhasil
-
-            }
-        });
-    }
+    function confirmDelete(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: 'Anda tidak akan dapat mengembalikan tindakan ini!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit form jika pengguna mengonfirmasi
+            document.getElementById('deleteForm-' + id).submit();
+        }
+    });
+}
 // untuk function konfirmasi edit
     function confirmEdit() {
         Swal.fire({

@@ -11,8 +11,8 @@
                 @csrf
                 @method('POST')
                 <div class="form-group mb-3"><label class="form-label">Nomor Polisi</label><input class="form-control" type="text" required  placeholder="Nomor Polisi" name="nopol" />
-                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" required  placeholder="Tahun" name="year" /></div>
-                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" required  placeholder="Kondisi" name="kondisi" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="number"  placeholder="Tahun" name="year" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text"  placeholder="Kondisi" name="kondisi" /></div>
                 </div>
                 <div class="form-group mb-3"><label class="form-label">Keterangan</label><input id="summernote" class="form-control" name="keterangan" placeholder="Keterangan"></input></div>
                 <div class="color form-group mb-3"><label class="form-label" style="margin-top: 15px;">Foto</label>

@@ -29,7 +29,7 @@
                                     id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     <select class="form-select" aria-label="Default select example" name="data_alats_id"
-                                        id="selectDataAlat" required>
+                                        id="selectDataAlat">
                                         <option selected  disabled hidden>Alat Berat</option>
                                         @foreach ($dataAlat as $dA)
                                             <option value="{{ $dA->id }}">{{ $dA->name }}</option>
@@ -39,10 +39,10 @@
                             </div>
                             <div class="form-check  d-flex align-items-center gap-2">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" required>
+                                    id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     <select class="form-select" aria-label="Default select example" name="data_truks_id"
-                                        id="selectJenisUnit" required>
+                                        id="selectJenisUnit">
                                         <option selected  disabled hidden>Truk Angkutan</option>
                                         @foreach ($dataTruk as $dT)
                                             <option value="{{ $dT->id }}">{{ $dT->nopol }}</option>

@@ -50,11 +50,11 @@
                                         class="btn btn-success btn-block">Ubah</a>
                                 </div>
                                 <div class="row">
-                                    <form class="p-0" action="{{ route('datatruk.destroy', $dataTruk) }}" method="post">
+                                    <form class="p-0" action="{{ route('datatruk.destroy', $dataTruk) }}" method="post" id="deleteForm-{{ $dataTruk->id }}">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-block"
-                                            style="width: 100%;">Hapus</button>
+                                        <button type="button" class="btn btn-danger btn-block"
+                                            style="width: 100%;" onclick="confirmDelete({{ $dataTruk->id }})">Hapus</button>
                                     </form>
                                 </div>
                                 <div class="row">

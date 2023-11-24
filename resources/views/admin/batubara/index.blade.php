@@ -80,12 +80,12 @@
                                         <a href="{{ route('batubara.show', $batubara) }}"
                                             class="btn btn-warning btn-circle ms-1" role="button"
                                             style="text-align: justify;"><i class="fas fa-eye text-white"></i></a>
-                                        <form action="{{ route('batubara.destroy', $batubara) }}" method="post"
+                                        <form action="{{ route('batubara.destroy', $batubara) }}" method="post" id="deleteForm-{{ $batubara->id }}""
                                             id="deleteForm">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-danger btn-circle ms-1 delete_confirm" type="button"
-                                                style="text-align: justify;" onclick="confirmDelete()">
+                                                style="text-align: justify;" onclick="confirmDelete({{$batubara->id}})">
                                                 <i class="fas fa-trash text-white"></i>
                                             </button>
                                         </form>

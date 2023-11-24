@@ -11,8 +11,8 @@
                 @csrf
                 @method('patch')
                 <div class="form-group mb-3"><label class="form-label">Nama</label><input class="form-control" type="text" value="{{$datAl->name}}" required placeholder="Nama" name="name" /></div>
-                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" value="{{$datAl->year}}" required placeholder="Tahun" name="year" /></div>
-                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" value="{{$datAl->kondisi}}" required placeholder="Kondisi" name="kondisi" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" value="{{$datAl->year}}" placeholder="Tahun" name="year" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" value="{{$datAl->kondisi}} placeholder="Kondisi" name="kondisi" /></div>
                 
                 <div class="form-group mb-3"><label class="form-label">Keterangan</label><input id="summernote" class="form-control" name="keterangan" value="{{$datAl->keterangan}}" placeholder="Keterangan"></input></div>
                 <div class="color form-group mb-3"><label class="form-label" style="margin-top: 15px;">Foto</label>

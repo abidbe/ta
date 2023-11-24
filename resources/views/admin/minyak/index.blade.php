@@ -66,11 +66,11 @@
                                         <a href="{{ route('minyak.show', $minyak) }}"
                                             class="btn btn-warning btn-circle ms-1" role="button"
                                             style="text-align: justify;"><i class="fas fa-eye text-white"></i></a>
-                                            <form action="{{ route('minyak.destroy', $minyak) }}" method="post" id="deleteForm">
+                                            <form action="{{ route('minyak.destroy', $minyak) }}" method="post" id="deleteForm-{{ $minyak->id }}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn btn-danger btn-circle ms-1 delete_confirm" type="button"
-                                                        style="text-align: justify;" onclick="confirmDelete()">
+                                                        style="text-align: justify;" onclick="confirmDelete({{$minyak->id}})">
                                                     <i class="fas fa-trash text-white"></i>
                                                 </button>
                                             </form>

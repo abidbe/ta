@@ -14,7 +14,7 @@ class DataTrukController extends Controller
     public function index()
     {
         $dataTruks = DataTruk::latest()->filter(request(['search']))->paginate(10)->withQueryString();
-        return view('admin.dataTruk.index',[
+        return view('admin.dataTruk.index', [
             'dataTruks' => $dataTruks
         ]);
     }
@@ -32,20 +32,36 @@ class DataTrukController extends Controller
      */
     public function store(Request $request)
     {
-        // ddd($request->all());
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->storeAs('public/potoTruk', $imageName);
+        try {
+            $request->validate([
+                'nopol' => 'required|max:50',
+                'year' => 'nullable|numeric|digits:4',
+                'kondisi' => 'max:50',
+                'keterangan' => 'max:255',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+            // ddd($request->all());
 
-        DataTruk::create([
-            'nopol' => ucfirst($request->nopol),
-            'year' => $request->year,
-            'kondisi' => $request->kondisi,
-            'keterangan' => ucfirst($request->keterangan),
-            'image' => $imageName,
-        ]);
-        
-        Alert::success('Sukses!', 'Data truk berhasil ditambahkan!');
-        return redirect()->route('datatruk.index')->with('image',$imageName);
+            if ($request->hasFile('image')) {
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->storeAs('public/potoTruk', $imageName);
+            } else {
+                $imageName = null;
+            }
+            DataTruk::create([
+                'nopol' => ucfirst($request->nopol),
+                'year' => $request->year,
+                'kondisi' => $request->kondisi,
+                'keterangan' => ucfirst($request->keterangan),
+                'image' => $imageName,
+            ]);
+
+            Alert::success('Sukses!', 'Data truk berhasil ditambahkan!');
+            return redirect()->route('datatruk.index')->with('image', $imageName);
+        } catch (\Throwable $th) {
+            Alert::error('Error!', 'Data truk gagal ditambahkan!');
+            return redirect()->route('datatruk.create');
+        }
     }
 
     /**
@@ -54,7 +70,7 @@ class DataTrukController extends Controller
     public function show($id)
     {
         $dataTruk = DataTruk::findorfail($id);
-        return view('admin.dataTruk.show',compact('dataTruk'));
+        return view('admin.dataTruk.show', compact('dataTruk'));
     }
 
     /**
@@ -63,7 +79,7 @@ class DataTrukController extends Controller
     public function edit($id)
     {
         $dataTruk = DataTruk::findorfail($id);
-        return view('admin.dataTruk.edit',compact('dataTruk'));
+        return view('admin.dataTruk.edit', compact('dataTruk'));
     }
 
     /**
@@ -71,15 +87,35 @@ class DataTrukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dataTruk = DataTruk::findorfail($id);
-        $dataTruk->update([
-            'nopol' => ucfirst($request->nopol),
-            'year' => $request->year,
-            'kondisi' => $request->kondisi,
-            'keterangan' => ucfirst($request->keterangan),
-        ]);
-        Alert::success('Sukses!','Data truk berhasil diubah');
-        return redirect()->route('datatruk.index');
+        try {
+            $request->validate([
+                'nopol' => 'required|max:50',
+                'year' => 'nullable|numeric|digits:4',
+                'kondisi' => 'max:50',
+                'keterangan' => 'max:255',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+            // dd($request->all());
+            if ($request->hasFile('image')) {
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->storeAs('public/potoTruk', $imageName);
+            } else {
+                $imageName = null;
+            }
+            $dataTruk = DataTruk::findorfail($id);
+            $dataTruk->update([
+                'nopol' => ucfirst($request->nopol),
+                'year' => $request->year,
+                'kondisi' => $request->kondisi,
+                'keterangan' => ucfirst($request->keterangan),
+            ]);
+            Alert::success('Sukses!', 'Data truk berhasil diubah');
+            return redirect()->route('datatruk.index');
+        } catch (\Throwable $th) {
+            Alert::error('Error!', 'Data truk gagal diubah');
+            return redirect()->route('datatruk.edit');
+        }
+       
     }
 
     /**
@@ -89,7 +125,7 @@ class DataTrukController extends Controller
     {
         $dataTruk = DataTruk::findorfail($id);
         $dataTruk->delete();
-        Alert::success('Sukses!','Data truk berhasil dihapus!');
+        Alert::success('Sukses!', 'Data truk berhasil dihapus!');
         return redirect()->route('datatruk.index');
     }
 }

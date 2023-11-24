@@ -68,11 +68,11 @@
                                             class="btn btn-success btn-block">Ubah</a>
                                     </div>
                                     <div class="row">
-                                        <form class="p-0" action="{{ route('minyak.destroy', $minyak) }}" method="post">
+                                        <form class="p-0" action="{{ route('minyak.destroy', $minyak) }}" method="post" id="deleteForm-{{ $minyak->id }}">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-block"
-                                                style="width: 100%;">Hapus</button>
+                                            <button type="button" class="btn btn-danger btn-block"
+                                                style="width: 100%;" onclick="confirmDelete({{ $minyak->id }})">Hapus</button>
                                         </form>
                                     </div>
                                     <div class="row">

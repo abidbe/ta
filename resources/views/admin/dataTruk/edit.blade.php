@@ -11,8 +11,8 @@
                 @csrf
                 @method('patch')
                 <div class="form-group mb-3"><label class="form-label">No Polisi</label><input class="form-control" type="text" value="{{$dataTruk->nopol}}" required placeholder="Nama" name="nopol" />
-                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" value="{{$dataTruk->year}}" required placeholder="Tahun" name="year" /></div>
-                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" value="{{$dataTruk->kondisi}}" required placeholder="Kondisi" name="kondisi" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Tahun</label><input class="form-control" type="text" value="{{$dataTruk->year}}" placeholder="Tahun" name="year" /></div>
+                    <div class="form-group mb-3"><label class="form-label">Kondisi</label><input class="form-control" type="text" value="{{$dataTruk->kondisi}}" placeholder="Kondisi" name="kondisi" /></div>
                 </div>
                 <div class="form-group mb-3"><label class="form-label">Keterangan</label><input id="summernote" class="form-control" name="keterangan" value="{{$dataTruk->keterangan}}" placeholder="Keterangan"></input></div>
                 <div class="color form-group mb-3"><label class="form-label" style="margin-top: 15px;">Foto</label>

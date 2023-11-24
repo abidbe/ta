@@ -39,7 +39,7 @@ class BatubaraController extends Controller
         try {
             $request->validate([
                 'date' => 'required',
-                'data_truks_id' => 'not_in:Data Truk',
+                'data_truks_id' => 'required|not_in:Select One--',
             ]);
             Batubara::create([
                 'lokasi' => $request->lokasi,

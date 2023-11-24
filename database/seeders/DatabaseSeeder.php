@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             'password'=> bcrypt('password'),
             'is_admin' => false
         ]);
+        user::factory(50)->create();
 
         
         DataAlat::factory(50)->create();
