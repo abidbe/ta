@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-12">
                                     <div class="file-upload-wrapper">
-                                        <div class="view file-upload" style="padding-bottom: 7px;padding-right: 4px;"><input id="input-file-now" class="form-control Masukkan Foto" type="file" name="image" /></div>
+                                        <div class="view file-upload" style="padding-bottom: 7px;padding-right: 4px;"><input id="input-file-now" class="form-control Masukkan Foto" type="file" name="image" accept="image/*"/></div>
                                     </div>
                                 </div>
                             </div>
