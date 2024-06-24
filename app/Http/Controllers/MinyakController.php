@@ -15,14 +15,14 @@ class MinyakController extends Controller
      */
     public function index()
     {
-        //ambil data minyak dan search serta pagination
+        // ambil data minyak dan search serta pagination
         $minyaks = Minyak::with('dataAlat', 'dataTruk')
             ->latest()
             ->filter(request(["search"]))
             ->paginate(10)
             ->withQueryString();
 
-        //saldo minyak
+        // saldo minyak
         $totalPemasukan = Minyak::Pemasukan()->sum('amount');
         $totalPengeluaran = Minyak::Pengeluaran()->sum('amount');
         $saldoMinyak = $totalPemasukan - $totalPengeluaran;
@@ -60,7 +60,7 @@ class MinyakController extends Controller
                 'data_alats_id' => $request->data_alats_id,
                 'data_truks_id' => $request->data_truks_id,
             ]);
-            // dd($request->all());
+
             Alert::success('Sukses!', 'Data minyak berhasil ditambahkan!');
             return redirect()->route('minyak.index');
         } catch (\Exception $e) {
@@ -74,10 +74,8 @@ class MinyakController extends Controller
      */
     public function show($id)
     {
-        $minyak = Minyak::findorfail($id);
-        $dataAlat = DataAlat::all();
-        $dataTruk = DataTruk::all();
-        return view('admin.minyak.show', compact('minyak', 'dataAlat', 'dataTruk'));
+        $minyak = Minyak::findOrFail($id);
+        return view('admin.minyak.show', compact('minyak'));
     }
 
     /**
@@ -85,7 +83,7 @@ class MinyakController extends Controller
      */
     public function edit($id)
     {
-        $minyak = Minyak::findorfail($id);
+        $minyak = Minyak::findOrFail($id);
         $dataAlat = DataAlat::all();
         $dataTruk = DataTruk::all();
         return view('admin.minyak.edit', compact('minyak', 'dataAlat', 'dataTruk'));
@@ -103,33 +101,25 @@ class MinyakController extends Controller
                 'date' => 'required|date',
             ]);
 
-            // Dapatkan objek Minyak berdasarkan ID
             $minyak = Minyak::findOrFail($id);
 
-            // Setel nilai-nilai yang diterima dari formulir
             $minyak->update([
                 'type' => $request->type,
-                'amount'=> $request->amount,
-                'date'=> $request->date,
-                'keterangan'=>ucfirst($request->keterangan),
-                'data_alats_id'=> $request->data_alats_id,
-                'data_truks_id'=> $request->data_truks_id,
+                'amount' => $request->amount,
+                'date' => $request->date,
+                'keterangan' => ucfirst($request->keterangan),
+                'data_alats_id' => $request->data_alats_id,
+                'data_truks_id' => $request->data_truks_id,
             ]);
 
-            // Simpan perubahan ke database
-            
-
-            // Tambahkan pesan sukses atau lakukan tindakan lain jika perlu
-            Alert::success('Sukses!', 'Data minyak berhasil diubah');
-
-            // Redirect ke halaman index
+            Alert::success('Sukses!', 'Data minyak berhasil diubah!');
             return redirect()->route('minyak.index');
         } catch (\Exception $exception) {
-
             Alert::error('Ada data kosong!', 'Periksa kembali data yang anda masukkan!');
             return redirect()->back();
         }
     }
+
     /**
      * Remove the specified resource from storage.
      */

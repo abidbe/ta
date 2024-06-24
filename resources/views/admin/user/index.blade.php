@@ -1,7 +1,8 @@
-@extends('layouts.templete')
+@extends('layouts.template')
+@section('title', 'Data User - PT. Jambi Bara Sejahtera')
 @section('content')
     <div class="container-fluid">
-        <h3 class="text-dark mb-4">Data Alat berat</h3>
+        <h3 class="text-dark mb-4">Data User</h3>
         <div class="card shadow">
             <div class="card-header py-3">
                 <p class="text-primary m-0 fw-bold"></p>
@@ -36,41 +37,43 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>@if($user->is_admin == 1)
-                                        Admin
-                                    @else
-                                        User
-                                    @endif
-                                    <i class="fa-solid fa-right-left"></i>
+                                    <td>
+                                        @if ($user->is_admin == 1)
+                                            Admin
+                                        @else
+                                            User
+                                        @endif
+                                        <i class="fa-solid fa-right-left"></i>
                                     </td>
                                     <td class="d-xl-flex">
                                         @if ($user->is_admin)
-                                        <form action="{{ route('user.removeadmin', $user) }}" method="Post">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="btn btn-primary btn-circle ms-1 delete_confirm" type="submit"
-                                                        style="text-align: justify;">
-                                                        <i class="fas fa-lock text-white"></i>
-                                                </button>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('user.makeadmin', $user) }}" method="Post">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="btn btn-primary btn-circle ms-1 delete_confirm" type="submit"
-                                                        style="text-align: justify;">
-                                                        <i class="fas fa-lock-open text-white"></i>
-                                                </button>
-                                        </form>
-                                        @endif
-                                            <form action="{{ route('user.destroy', $user) }}" method="post" id="deleteForm-{{ $user->id }}">
+                                            <form action="{{ route('user.removeadmin', $user) }}" method="Post">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-circle ms-1 delete_confirm" type="button"
-                                                        style="text-align: justify;" onclick="confirmDelete({{ $user->id }})" >
-                                                    <i class="fas fa-trash text-white"></i>
+                                                @method('PATCH')
+                                                <button class="btn btn-primary btn-circle ms-1 delete_confirm"
+                                                    type="submit" style="text-align: justify;">
+                                                    <i class="fas fa-lock text-white"></i>
                                                 </button>
                                             </form>
+                                        @else
+                                            <form action="{{ route('user.makeadmin', $user) }}" method="Post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button class="btn btn-success btn-circle ms-1 delete_confirm"
+                                                    type="submit" style="text-align: justify;">
+                                                    <i class="fas fa-lock-open text-white"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <form action="{{ route('user.destroy', $user) }}" method="post"
+                                            id="deleteForm-{{ $user->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-circle ms-1 delete_confirm" type="button"
+                                                style="text-align: justify;" onclick="confirmDelete({{ $user->id }})">
+                                                <i class="fas fa-trash text-white"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
@@ -87,13 +90,13 @@
                             Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} entries
                         </p>
                     </div>
-                    
+
                     <div class="col-md-12 mt-3">
                         <div class="d-flex justify-content-end">
                             {{ $users->links() }}
                         </div>
                     </div>
-                </div>                  
+                </div>
             </div>
         </div>
     </div>

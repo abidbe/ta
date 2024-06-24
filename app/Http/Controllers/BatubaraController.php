@@ -16,10 +16,14 @@ class BatubaraController extends Controller
     {
         $batubaras = Batubara::with('dataTruk')
             ->latest()
-            ->filter(request(["search"]))
+            ->filter(request(['search']))
             ->paginate(10)
             ->withQueryString();
-            return view("admin.batubara.index", compact("batubaras"));
+        $totalRetase = Batubara::sum('jumlah_retase');
+        $totalBucket = Batubara::sum('jumlah_bucket');
+        $totalTonase = Batubara::sum('estimasi_tonase');
+        
+        return view('admin.batubara.index', compact('batubaras', 'totalRetase', 'totalBucket', 'totalTonase'));
     }
 
     /**
@@ -28,7 +32,8 @@ class BatubaraController extends Controller
     public function create()
     {
         $dataTruk = DataTruk::all();
-        return view("admin.batubara.create", compact("dataTruk"));
+        
+        return view('admin.batubara.create', compact('dataTruk'));
     }
 
     /**
@@ -36,11 +41,12 @@ class BatubaraController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'date' => 'required',
+            'data_truks_id' => 'required|not_in:Select One--',
+        ]);
+
         try {
-            $request->validate([
-                'date' => 'required',
-                'data_truks_id' => 'required|not_in:Select One--',
-            ]);
             Batubara::create([
                 'lokasi' => $request->lokasi,
                 'driver' => $request->driver,
@@ -53,9 +59,11 @@ class BatubaraController extends Controller
                 'data_truks_id' => $request->data_truks_id,
             ]);
             Alert::success('Sukses', 'Data Batu Bara Berhasil Ditambahkan');
+            
             return redirect()->route('batubara.index');
         } catch (\Throwable $th) {
             Alert::error('Ada Kesalahan', 'Data Batubara Gagal Ditambahkan');
+            
             return redirect()->route('batubara.create');
         }
     }
@@ -65,9 +73,10 @@ class BatubaraController extends Controller
      */
     public function show($id)
     {   
-        $batubara = Batubara::findorfail($id);
+        $batubara = Batubara::findOrFail($id);
         $dataTruk = DataTruk::all();
-        return view('admin.batubara.show', compact('batubara','dataTruk'));
+        
+        return view('admin.batubara.show', compact('batubara', 'dataTruk'));
     }
 
     /**
@@ -75,9 +84,10 @@ class BatubaraController extends Controller
      */
     public function edit($id)
     {
-        $batubara = Batubara::findorfail($id);
+        $batubara = Batubara::findOrFail($id);
         $dataTruk = DataTruk::all();
-        return view('admin.batubara.edit', compact('batubara','dataTruk'));
+        
+        return view('admin.batubara.edit', compact('batubara', 'dataTruk'));
     }
 
     /**
@@ -85,12 +95,13 @@ class BatubaraController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'date' => 'required',
+            'data_truks_id' => 'not_in:Data Truk',
+        ]);
+
         try {
-            $request->validate([
-                'date' => 'required',
-                'data_truks_id' => 'not_in:Data Truk',
-            ]);
-            $batubara = Batubara::findorfail($id);
+            $batubara = Batubara::findOrFail($id);
             $batubara->update([
                 'lokasi' => $request->lokasi,
                 'driver' => $request->driver,
@@ -102,11 +113,13 @@ class BatubaraController extends Controller
                 'date' => $request->date,
                 'data_truks_id' => $request->data_truks_id,
             ]);
-            Alert::success('Sukses!','Data Batu Bara Berhasil Diubah');
+            Alert::success('Sukses!', 'Data Batu Bara Berhasil Diubah');
+            
             return redirect()->route('batubara.index');
         } catch (\Throwable $th) {
-            Alert::error('Ada Kesalahan','Data Batu Bara Gagal Diubah');
-            return redirect()->route('batubara.edit');
+            Alert::error('Ada Kesalahan', 'Data Batu Bara Gagal Diubah');
+            
+            return redirect()->route('batubara.edit', $id);
         }
     }
 
@@ -116,7 +129,8 @@ class BatubaraController extends Controller
     public function destroy(Batubara $batubara)
     {
         $batubara->delete();
-        Alert::success('Sukses!','Data Batu Bara Berhasil Dihapus');
+        Alert::success('Sukses!', 'Data Batu Bara Berhasil Dihapus');
+        
         return redirect()->route('batubara.index');
     }
 }

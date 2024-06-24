@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataAlat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DataAlatController extends Controller
@@ -13,10 +14,7 @@ class DataAlatController extends Controller
      */
     public function index()
     {
-        // dd(request('search'));
-
         $dataAlats = DataAlat::latest()->filter(request(['search']))->paginate(10)->withQueryString();
-
         return view('admin.dataAlat.index', compact('dataAlats'));
     }
 
@@ -35,13 +33,13 @@ class DataAlatController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|max:50',
+                'name' => 'required|unique:data_alats|max:50',
                 'year' => 'nullable|numeric|digits:4',
                 'kondisi' => 'max:50',
                 'keterangan' => 'max:255',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            // dd($request->all());
+
             if ($request->hasFile('image')) {
                 $imageName = time() . '.' . $request->image->extension();
                 $request->image->storeAs('public/potoAlat', $imageName);
@@ -57,7 +55,6 @@ class DataAlatController extends Controller
                 'image' => $imageName,
             ]);
 
-
             Alert::success('Hore!', 'Data alat berat sudah ditambahkan!');
             return redirect()->route('dataalat.index')->with('image', $imageName);
         } catch (\Throwable $th) {
@@ -71,7 +68,7 @@ class DataAlatController extends Controller
      */
     public function show($id)
     {
-        $dataAlat = DataAlat::findorfail($id);
+        $dataAlat = DataAlat::findOrFail($id);
         return view('admin.dataAlat.show', compact('dataAlat'));
     }
 
@@ -80,8 +77,8 @@ class DataAlatController extends Controller
      */
     public function edit($id)
     {
-        $datAl = DataAlat::findorfail($id);
-        return view('admin.dataAlat.edit', compact('datAl'));
+        $dataAlat = DataAlat::findOrFail($id);
+        return view('admin.dataAlat.edit', compact('dataAlat'));
     }
 
     /**
@@ -91,31 +88,39 @@ class DataAlatController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|max:50',
+                'name' => 'required|max:50|unique:data_alats,name,' . $id,
                 'year' => 'nullable|numeric|digits:4',
                 'kondisi' => 'max:50',
                 'keterangan' => 'max:255',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            // dd($request->all());
+
+            $dataAlat = DataAlat::findOrFail($id);
+
             if ($request->hasFile('image')) {
                 $imageName = time() . '.' . $request->image->extension();
                 $request->image->storeAs('public/potoAlat', $imageName);
+                // Hapus gambar lama jika ada
+                if ($dataAlat->image) {
+                    Storage::delete('public/potoAlat/' . $dataAlat->image);
+                }
             } else {
-                $imageName = null;
+                $imageName = $dataAlat->image;
             }
-            $datAl = DataAlat::findorfail($id);
-            $datAl->update([
+
+            $dataAlat->update([
                 'name' => ucfirst($request->name),
                 'year' => $request->year,
                 'kondisi' => $request->kondisi,
                 'keterangan' => ucfirst($request->keterangan),
+                'image' => $imageName,
             ]);
+
             Alert::success('Sukses!', 'Data alat berat berhasil diubah');
             return redirect()->route('dataalat.index');
         } catch (\Throwable $th) {
             Alert::error('Error!', 'Data alat berat gagal diubah');
-            return redirect()->route('dataalat.edit');
+            return redirect()->back();
         }
     }
 
@@ -123,10 +128,17 @@ class DataAlatController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {   
-        $datAl = DataAlat::findorfail($id);
-        $datAl->delete();
-        Alert::success('Sukses!', 'Data alat berat berhasil dihapus');
+    {
+        try {
+            $dataAlat = DataAlat::findOrFail($id);
+            if ($dataAlat->image) {
+                Storage::delete('public/potoAlat/' . $dataAlat->image);
+            }
+            $dataAlat->delete();
+            Alert::success('Sukses!', 'Data alat berat berhasil dihapus');
+        } catch (\Throwable $th) {
+            Alert::error('Error!', 'Data alat berat gagal dihapus');
+        }
         return redirect()->route('dataalat.index');
     }
 }

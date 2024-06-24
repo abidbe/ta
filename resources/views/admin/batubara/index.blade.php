@@ -1,4 +1,5 @@
-@extends('layouts.templete')
+@extends('layouts.template')
+@section('title', 'Data Batubara - PT. Jambi Bara Sejahtera')
 @section('content')
     <div class="container-fluid">
         <h3 class="text-dark mb-4">Kelola Batu Bara</h3>
@@ -8,13 +9,14 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6 ">
-                        <a href="{{ route('batubara.create') }}" class="btn btn-success btn-icon-split me-4"
-                            role="button"><span class="text-white-50 icon"><i class="fas fa-plus"></i></span><span
-                                class="text-white text">Create</span></a>
+                    <div class="col-md-6">
+                        <a href="{{ route('batubara.create') }}" class="btn btn-success btn-icon-split me-4" role="button">
+                            <span class="text-white-50 icon"><i class="fas fa-plus"></i></span>
+                            <span class="text-white text">Create</span>
+                        </a>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                        <form style="width: 50% " action="{{ route('batubara.index') }}" method="get">
+                        <form style="width: 50%" action="{{ route('batubara.index') }}" method="get">
                             <div class="text-md-end">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Search.." name="search">
@@ -28,64 +30,45 @@
                     <table class="table my-0" id="dataTable">
                         <thead>
                             <tr>
-                                <th style="border-bottom-color: rgb(0,0,0);">Tanggal</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">No Polisi</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Lokasi</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Driver</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Jumlah Retase</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Jumlah Bucket</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Estimasi Tonase</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">DT Gendong</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Tujuan</th>
-                                <th style="border-bottom-color: rgb(0,0,0);">Aksi</th>
+                                <th>Tanggal</th>
+                                <th>No Polisi</th>
+                                <th>Lokasi</th>
+                                <th>Driver</th>
+                                <th>Jumlah Retase</th>
+                                <th>Jumlah Bucket</th>
+                                <th>Estimasi Tonase</th>
+                                <th>DT Gendong</th>
+                                <th>Tujuan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($batubaras as $batubara)
                                 <tr>
-                                    <td class="border-end">
-                                        {{ \Carbon\Carbon::parse($batubara->date)->isoFormat('dddd, DD MMMM YYYY') }}
-                                    </td>
-                                    <td class="border-end">
-                                        @if ($batubara->data_truks_id)
-                                            {{ $batubara->dataTruk->nopol }}
-                                        @endif
-                                    </td>
-                                    <td class="border-end">
-                                        {{ $batubara->lokasi }}
-                                    </td>
-                                    <td class="border-end">
-                                        {{ $batubara->driver }}
-                                    </td>
-                                    <td class="border-end">
-                                        {{ $batubara->jumlah_retase }}
-                                    </td>
-                                    <td class="border-end">
-                                        {{ $batubara->jumlah_bucket }}
-                                    </td>
-                                    <td class="border-end">
-                                        {{ number_format($batubara->estimasi_tonase, 2, ',', '.') }}
-
-                                    </td>
-                                    <td class="border-end">
-                                        {{ $batubara->dt_gendong }}
-                                    </td>
-                                    <td class="border-end">
-                                        {{ $batubara->tujuan }}
-                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($batubara->date)->isoFormat('dddd, DD MMMM YYYY') }}</td>
+                                    <td>{{ $batubara->dataTruk->nopol ?? '' }}</td>
+                                    <td>{{ $batubara->lokasi }}</td>
+                                    <td>{{ $batubara->driver }}</td>
+                                    <td>{{ $batubara->jumlah_retase }}</td>
+                                    <td>{{ $batubara->jumlah_bucket }}</td>
+                                    <td>{{ number_format($batubara->estimasi_tonase, 2, ',', '.') }}</td>
+                                    <td>{{ $batubara->dt_gendong }}</td>
+                                    <td>{{ $batubara->tujuan }}</td>
                                     <td class="d-xl-flex">
                                         <a href="{{ route('batubara.edit', $batubara) }}"
-                                            class="btn btn-info btn-circle ms-1" role="button"
-                                            style="text-align: justify;"><i class="fas fa-edit text-white"></i></a>
+                                            class="btn btn-info btn-circle ms-1" role="button">
+                                            <i class="fas fa-edit text-white"></i>
+                                        </a>
                                         <a href="{{ route('batubara.show', $batubara) }}"
-                                            class="btn btn-warning btn-circle ms-1" role="button"
-                                            style="text-align: justify;"><i class="fas fa-eye text-white"></i></a>
-                                        <form action="{{ route('batubara.destroy', $batubara) }}" method="post" id="deleteForm-{{ $batubara->id }}""
-                                            id="deleteForm">
+                                            class="btn btn-warning btn-circle ms-1" role="button">
+                                            <i class="fas fa-eye text-white"></i>
+                                        </a>
+                                        <form action="{{ route('batubara.destroy', $batubara) }}" method="post"
+                                            id="deleteForm-{{ $batubara->id }}">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-danger btn-circle ms-1 delete_confirm" type="button"
-                                                style="text-align: justify;" onclick="confirmDelete({{$batubara->id}})">
+                                                onclick="confirmDelete({{ $batubara->id }})">
                                                 <i class="fas fa-trash text-white"></i>
                                             </button>
                                         </form>
@@ -93,20 +76,18 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">No data available</td>
+                                    <td colspan="10" class="text-center">No data available</td>
                                 </tr>
                             @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" class="text-end fw-bold border-end">Total:</td>
-                                <td class="border-end">{{ number_format($batubara->sum('jumlah_retase'), 0, ',', '.') }}</td>
-                                <td class="border-end">{{ number_format($batubara->sum('jumlah_bucket'), 0, ',', '.') }}</td>
-                                <td class="border-end">{{ number_format($batubara->sum('estimasi_tonase'), 2, ',', '.') }}</td>
+                                <td colspan="4" class="text-end fw-bold">Total:</td>
+                                <td>{{ number_format($totalRetase, 0, ',', '.') }}</td>
+                                <td>{{ number_format($totalBucket, 0, ',', '.') }}</td>
+                                <td>{{ number_format($totalTonase, 2, ',', '.') }}</td>
                             </tr>
-                            
                         </tfoot>
-
                     </table>
                 </div>
                 <div class="row">

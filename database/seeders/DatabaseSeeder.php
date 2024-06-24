@@ -34,9 +34,9 @@ class DatabaseSeeder extends Seeder
         user::factory(50)->create();
 
         
-        DataAlat::factory(50)->create();
-        DataTruk::factory(50)->create();
-        Minyak::factory(50)->create();
-        Batubara::factory(50)->create();
+        // DataAlat::factory(50)->create();
+        // DataTruk::factory(50)->create();
+        // Minyak::factory(50)->create();
+        // Batubara::factory(50)->create();
     }
 }

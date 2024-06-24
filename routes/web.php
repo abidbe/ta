@@ -32,15 +32,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    
-    
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
-    Route::get('/laporan/batubara/{awal}/{akhir}', [LaporanController::class, 'cetakLaporanBatubara'])->name('laporan.cetak.batubara');
-    Route::get('/laporan/minyak/{awal}/{akhir}', [LaporanController::class, 'cetakLaporanMinyak'])->name('laporan.cetak.minyak');
+
+    Route::get('/laporan', [LaporanController::class, 'form'])->name('laporan.form');
+    Route::post('/laporan/viewdata', [LaporanController::class, 'store'])->name('laporan.store');
+    Route::get('/export/batubara', [LaporanController::class, 'exportBatubara'])->name('export.batubara');
+    Route::get('/export/minyak', [LaporanController::class, 'exportMinyak'])->name('export.minyak');
 });
-Route::middleware('admin')->group(function(){
+Route::middleware('admin')->group(function () {
     Route::resource('/dataalat', DataAlatController::class);
     Route::resource('/datatruk', DataTrukController::class);
     Route::resource('/minyak', MinyakController::class);
@@ -52,6 +52,3 @@ Route::middleware('admin')->group(function(){
     Route::patch('/user/{user}/removeadmin', [UserController::class, 'removeadmin'])->name('user.removeadmin');
 });
 require __DIR__ . '/auth.php';
-
-
-

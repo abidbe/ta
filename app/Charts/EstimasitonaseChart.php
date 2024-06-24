@@ -4,6 +4,7 @@ namespace App\Charts;
 
 use App\Models\Batubara;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
+use ArielMejiaDev\LarapexCharts\LineChart;
 use Carbon\Carbon;
 
 class EstimasitonaseChart
@@ -15,7 +16,7 @@ class EstimasitonaseChart
         $this->Echart = $Echart;
     }
 
-    public function build(): \ArielMejiaDev\LarapexCharts\LineChart
+    public function build(): LineChart
     {
         $tahun = date('Y');
         $bulan = date('m');

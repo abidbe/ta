@@ -1,9 +1,9 @@
-@extends('layouts.templete')
+@extends('layouts.template')
+@section('title', 'Create Data Batubara - PT. Jambi Bara Sejahtera')
 @section('content')
-    <div
-        class="container-fluid d-flex d-print-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex flex-column align-items-center">
+    <div class="container-fluid d-flex flex-column align-items-center">
         <h3 class="text-center text-dark mb-4" style="margin-top: 12px;">Tambah Data Batu Bara</h3>
-        <div class="card shadow ms-xxl-0 ps-xxl-0 mb-xxl-4 mb-xl-4 mb-lg-4 mb-md-4 mb-sm-4 mb-4">
+        <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <p class="text-primary m-0 fw-bold"></p>
             </div>
@@ -32,44 +32,41 @@
                                 <label class="form-label">Lokasi</label>
                                 <input class="form-control" placeholder="Lokasi" name="lokasi" />
                             </div>
-
                             <div class="col form-group mb-3">
                                 <label class="form-label">Driver</label>
-                                <input class="form-control" name="driver" placeholder="Driver">
-                                </input>
+                                <input class="form-control" name="driver" placeholder="Driver" />
                             </div>
                             <div class="col form-group mb-3">
                                 <label class="form-label">Jumlah Retase</label>
-                                <input class="form-control" type="number" name="jumlah_retase" placeholder="Jumlah Retase">
-                                </input>
+                                <input class="form-control" type="number" name="jumlah_retase"
+                                    placeholder="Jumlah Retase" />
                             </div>
                             <div class="col form-group mb-3">
                                 <label class="form-label">Jumlah Bucket</label>
-                                <input class="form-control" type="number" name="jumlah_bucket" placeholder="Jumlah Bucket">
-                                </input>
+                                <input class="form-control" type="number" name="jumlah_bucket"
+                                    placeholder="Jumlah Bucket" />
                             </div>
                             <div class="col form-group mb-3">
                                 <label class="form-label">Estimasi Tonase</label>
-                                <input class="form-control" type="number" step="0.01" name="estimasi_tonase" placeholder="Estimasi Tonase">
-                                </input>
+                                <input class="form-control" type="number" step="0.01" name="estimasi_tonase"
+                                    placeholder="Estimasi Tonase" />
                             </div>
                             <div class="col form-group mb-3">
                                 <label class="form-label">DT Gendong</label>
-                                <input class="form-control" name="dt_gendong" placeholder="DT Gendong">
-                                </input>
+                                <input class="form-control" name="dt_gendong" placeholder="DT Gendong" />
                             </div>
                             <div class="col form-group mb-3">
                                 <label class="form-label">Tujuan</label>
-                                <input class="form-control" name="tujuan" placeholder="Tujuan">
-                                </input>
+                                <input class="form-control" name="tujuan" placeholder="Tujuan" />
                             </div>
                         </div>
                     </div>
                     <hr style="margin-top: 30px;margin-bottom: 10px;" />
-                    <div class="form-group mb-3"><button id="submitButton" class="btn btn-primary d-block w-100"
-                            type="submit"><i class="fas fa-save"></i> Save</button>
+                    <div class="form-group mb-3">
+                        <button id="submitButton" class="btn btn-primary d-block w-100" type="submit"><i
+                                class="fas fa-save"></i> Save</button>
                         <a class="btn btn-danger d-block w-100" role="button" href="{{ route('batubara.index') }}"
-                            style="margin-top: 15px;"><i class="fas fa-arrow-left"></i> Cancel</a>
+                            style="margin-top: 15px;"><i class="fas fa-arrow-left"></i> Cancel</a>
                     </div>
                 </form>
             </div>
